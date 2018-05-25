@@ -3,9 +3,9 @@ package com.paul.algorithm.sort;
 import java.util.Arrays;
 import java.util.function.BiPredicate;
 
-public class Insertion<T> {
+public class Shell<T> {
   /**
-   * Insertion sort algorithm.
+   * Shell sort algorithm.
    *
    * @param items           an array to be sorted
    * @param isOrderedBefore a predicate to check if the first parameter is less than
@@ -14,15 +14,25 @@ public class Insertion<T> {
    */
   public T[] sort(T[] items, BiPredicate<? super T, ? super T> isOrderedBefore) {
     T[] result = Arrays.copyOf(items, items.length);
-    for (int i = 1; i < items.length; i++) {
-      int j = i;
-      while (j >= 1 && isOrderedBefore.test(result[j], result[j - 1])) {
-        T temp = result[j];
-        result[j] = result[j - 1];
-        result[j - 1] = temp;
-        j--;
-      }
+    int gap = 1;
+    while (gap < items.length / 3) {
+      gap = 3 * gap + 1;
     }
+
+    while (gap >= 1) {
+      for (int i = gap; i < items.length; i++) {
+        int j = i;
+        while (j >= gap && isOrderedBefore.test(result[j], result[j - gap])) {
+          T temp = result[j];
+          result[j] = result[j - gap];
+          result[j - gap] = temp;
+          j -= gap;
+        }
+      }
+
+      gap = gap / 3;
+    }
+
     return result;
   }
 }

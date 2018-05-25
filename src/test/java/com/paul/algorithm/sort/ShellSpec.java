@@ -8,7 +8,7 @@ import java.util.function.BiPredicate;
 import org.junit.runner.RunWith;
 
 @RunWith(JUnitQuickcheck.class)
-public class InsertionSpec {
+public class ShellSpec {
   /**
    * Property test.
    *
@@ -16,10 +16,9 @@ public class InsertionSpec {
    */
   @Property
   public void propertyTestSortedArray(Integer[] items) {
-    Insertion<Integer> insertion = new Insertion<>();
+    Shell<Integer> shell = new Shell<>();
     BiPredicate<Integer, Integer> isOrderedBefore = (v1, v2) -> v1 < v2;
-    Integer[] result = insertion.sort(items, isOrderedBefore);
+    Integer[] result = shell.sort(items, isOrderedBefore);
     assertTrue("Array should be sorted", Util.isSorted(result, isOrderedBefore));
   }
-
 }

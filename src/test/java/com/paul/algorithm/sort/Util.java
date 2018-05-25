@@ -12,4 +12,14 @@ class Util {
 
     return true;
   }
+
+  static boolean isSorted(int[] items) {
+    for (int i = 1; i < items.length; i++) {
+      if (items[i] < items[i - 1]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
